@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geldpolitik & Preisstabilität: Eine analytische Annäherung</title>
+    <!-- Tailwind CSS für modernes Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome für Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js für dynamische Grafiken -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Druck-Styling */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableArea, #printableArea * {
+                visibility: visible;
+            }
+            #printableArea {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 20px;
+                background: white;
+                color: black;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+        
+        .academic-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-align: justify;
+            color: #334155;
+        }
+
+        /* Diagramm Styling */
+        .pillar-box {
+            transition: all 0.3s ease;
+        }
+        .pillar-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .flow-arrow {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flow-arrow::after {
+            content: '▼';
+            font-size: 20px;
+            color: #94a3b8;
+        }
+        @media (min-width: 768px) {
+            .flow-arrow::after {
+                content: '▶';
+                position: absolute;
+                right: -15px;
+            }
+        }
+        
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white p-4 shadow-lg flex-shrink-0 z-10 border-b-4 border-blue-500">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold tracking-wide">Wirtschaftspolitik: Die Europäische Zentralbank</h1>
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Kursstufe 13 | Gymnasium | Geldtheorie & Politik</p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="generatePDF()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition flex items-center gap-2 font-medium text-sm">
+                    <i class="fas fa-file-pdf"></i> Exportieren
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-md flex-shrink-0 overflow-y-auto z-0 flex flex-col justify-between border-r border-gray-200">
+            <div>
+                <div class="p-6 border-b bg-gray-50">
+                    <h2 class="font-bold text-slate-800 text-sm uppercase tracking-wider">Lernmodule</h2>
+                </div>
+                <ul class="flex flex-col">
+                    <li>
+                        <button onclick="switchTab('tab1')" class="nav-btn w-full text-left p-4 hover:bg-blue-50 focus:outline-none border-l-4 border-transparent hover:border-blue-600 transition active-nav text-sm font-medium text-slate-600" id="btn-tab1">
+                            <i class="fas fa-university mr-3 text-blue-500 w-5"></i> Mandat & Institution
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('tab2')" class="nav-btn w-full text-left p-4 hover:bg-blue-50 focus:outline-none border-l-4 border-transparent hover:border-blue-600 transition text-sm font-medium text-slate-600" id="btn-tab2">
+                            <i class="fas fa-project-diagram mr-3 text-green-500 w-5"></i> Strategie & Transmission
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('tab3')" class="nav-btn w-full text-left p-4 hover:bg-blue-50 focus:outline-none border-l-4 border-transparent hover:border-blue-600 transition text-sm font-medium text-slate-600" id="btn-tab3">
+                            <i class="fas fa-video mr-3 text-purple-500 w-5"></i> Transfer: Videoproduktion
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('tab4')" class="nav-btn w-full text-left p-4 hover:bg-blue-50 focus:outline-none border-l-4 border-transparent hover:border-blue-600 transition text-sm font-medium text-slate-600" id="btn-tab4">
+                            <i class="fas fa-tasks mr-3 text-red-500 w-5"></i> Wissensüberprüfung
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button onclick="switchTab('tab5')" class="nav-btn w-full text-left p-4 hover:bg-blue-50 focus:outline-none border-l-4 border-transparent hover:border-blue-600 transition border-t bg-gray-50 text-sm font-medium text-slate-600" id="btn-tab5">
+                    <i class="fas fa-lightbulb mr-3 text-yellow-500 w-5"></i> Reflexion
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-8 relative bg-slate-100">
+            
+            <!-- TAB 1: MANDAT & UNABHÄNGIGKEIT -->
+            <div id="tab1" class="tab-content active max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-landmark text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Das Primat der Preisstabilität</h2>
+                            <p class="text-slate-500">Institutionelle Architektur, Governance und Legitimation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-5 bg-blue-50 border-l-4 border-blue-600 mb-8 rounded-r-lg">
+                        <h4 class="font-bold text-blue-800 mb-1"><i class="fas fa-graduation-cap"></i> Arbeitsauftrag</h4>
+                        <p class="text-sm text-blue-900 leading-relaxed">
+                            Analysieren Sie die institutionelle Struktur der EZB. Differenzieren Sie zwischen dem <strong>Direktorium</strong> und dem <strong>EZB-Rat</strong> hinsichtlich ihrer Aufgaben. Erläutern Sie im Notizfeld zudem das Spannungsfeld zwischen Unabhängigkeit und demokratischer Legitimation.
+                        </p>
+                    </div>
+
+                    <!-- Grafik: Die 4 Säulen der Unabhängigkeit -->
+                    <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <h3 class="text-center font-bold text-slate-700 mb-6 uppercase tracking-widest text-sm">Das Fundament der EZB (Art. 127 AEUV)</h3>
+                        
+                        <!-- Dach -->
+                        <div class="bg-blue-900 text-white text-center py-4 rounded-t-lg shadow-lg mb-1 mx-4 relative z-10">
+                            <h4 class="font-bold text-lg">PRIMÄRZIEL: PREISSTABILITÄT</h4>
+                        </div>
+                        
+                        <!-- Säulen Container -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-4">
+                            <!-- Säule 1 -->
+                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-university"></i></div>
+                                <h5 class="font-bold text-sm mb-2">Institutionell</h5>
+                                <p class="text-xs text-slate-500">Keine Weisungen von Regierungen (Art. 130 AEUV).</p>
+                            </div>
+                            <!-- Säule 2 -->
+                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-users-cog"></i></div>
+                                <h5 class="font-bold text-sm mb-2">Personell</h5>
+                                <p class="text-xs text-slate-500">Lange Amtszeit (8 Jahre), keine Wiederwahl.</p>
+                            </div>
+                            <!-- Säule 3 -->
+                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-coins"></i></div>
+                                <h5 class="font-bold text-sm mb-2">Finanziell</h5>
+                                <p class="text-xs text-slate-500">Eigener Haushalt, Verbot monetärer Staatsfinanzierung.</p>
+                            </div>
+                            <!-- Säule 4 -->
+                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-cogs"></i></div>
+                                <h5 class="font-bold text-sm mb-2">Funktionell</h5>
+                                <p class="text-xs text-slate-500">Freie Wahl der Instrumente zur Zielerreichung.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <article class="academic-text mb-8">
+                        <p class="mb-4">
+                            Die Geldpolitik des Eurosystems basiert auf der verfassungsrechtlichen Verankerung im Artikel 127 AEUV. Dem Europäischen System der Zentralbanken (ESZB) wird das eindeutige Primat der Preisstabilität zugewiesen. Im Gegensatz zum dualen Mandat der US-amerikanischen Fed ist die Unterstützung der allgemeinen Wirtschaftspolitik in der EU dem Ziel der Geldwertstabilität untergeordnet.
+                        </p>
+                        
+                        <details class="group mb-8">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer list-none bg-slate-100 p-4 rounded-lg hover:bg-slate-200 transition">
+                                <span><i class="fas fa-book-open mr-2 text-blue-600"></i> Exkurs: Das Time-Inconsistency-Problem</span>
+                                <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                            </summary>
+                            <div class="text-slate-600 mt-3 group-open:animate-fadeIn px-4 pb-4 bg-slate-50 rounded-b-lg border-x border-b border-slate-100">
+                                <p>
+                                    Ökonomisch lässt sich die Unabhängigkeit durch die Theorie der rationalen Erwartungen begründen. Eine Zentralbank unter politischem Einfluss neigt dazu, kurzfristig die Geldmenge zu erhöhen ("Political Business Cycle"), um Wahlen zu gewinnen. Dies führt langfristig nur zu Inflation. Um dieses <strong>Zeitinkonsistenz-Problem</strong> zu lösen, muss die Geldpolitik an eine unabhängige, glaubwürdige Institution delegiert werden.
+                                </p>
+                            </div>
+                        </details>
+
+                        <!-- NEUER BEREICH: ORGANE -->
+                        <h3 class="text-xl font-bold text-slate-700 mb-4 pt-4 border-t border-slate-200">Die Entscheidungszentren: Wer steuert den Euro?</h3>
+                        <p class="mb-6">
+                            Die Governance-Struktur der EZB spiegelt den föderalen Charakter der EU wider. Während das <strong>Direktorium</strong> als supranationales Exekutivorgan fungiert, repräsentiert der <strong>EZB-Rat</strong> als höchstes Entscheidungsgremium die Interessen des gesamten Währungsraums.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- Organ 1: Direktorium -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                                <h4 class="font-bold text-blue-800 pb-2 mb-3 flex items-center">
+                                    <span class="bg-blue-100 p-2 rounded mr-3"><i class="fas fa-user-tie text-blue-600"></i></span> 
+                                    Das Direktorium
+                                </h4>
+                                <ul class="text-sm text-slate-700 space-y-3">
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Präsident/in, Vizepräsident/in + 4 weitere Mitglieder.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Führung der laufenden Geschäfte, Vorbereitung der Ratssitzungen, <em>Umsetzung</em> der Geldpolitik.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Wahl:</strong> Durch den Europäischen Rat (Staatschefs) für 8 Jahre.</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Organ 2: EZB-Rat -->
+                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                                <h4 class="font-bold text-indigo-800 pb-2 mb-3 flex items-center">
+                                    <span class="bg-indigo-100 p-2 rounded mr-3"><i class="fas fa-gavel text-indigo-600"></i></span>
+                                    Der EZB-Rat
+                                </h4>
+                                <ul class="text-sm text-slate-700 space-y-3">
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Die 6 Mitglieder des Direktoriums + Präsidenten der Nationalen Zentralbanken (NZB) der Euro-Länder.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Höchstes Gremium. Festlegung der <em>Leitzinsen</em> und der monetären Strategie.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Prinzip:</strong> "Ad personam" (unabhängige Entscheidung) & Rotationsprinzip bei Stimmrechten.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-r">
+                            <h5 class="font-bold text-yellow-800 text-sm flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i> Begriffsschärfung: Eurosystem vs. ESZB</h5>
+                            <p class="text-sm text-yellow-900 mt-1">
+                                Das <strong>Eurosystem</strong> umfasst die EZB und die NZBs der Länder, die den Euro eingeführt haben. Das <strong>ESZB (Europäisches System der Zentralbanken)</strong> schließt <em>alle</em> EU-Zentralbanken ein (auch jene ohne Euro, z.B. Schweden, Polen). Geldpolitische Entscheidungen für den Euroraum trifft nur das Eurosystem.
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-blue-500 pl-2">Ihre Analyse-Notizen (Unabhängigkeit & Organe):</label>
+                        <textarea id="note1" class="w-full h-40 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-blue-500 focus:border-transparent save-local academic-text text-sm" placeholder="Notieren Sie hier Ihre Erkenntnisse. Wie unterscheiden sich die Aufgaben von Direktorium und Rat? Warum ist die Unabhängigkeit demokratisch heikel?"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: STRATEGIE & TRANSMISSION -->
+            <div id="tab2" class="tab-content max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-line text-2xl text-green-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Strategie & Transmission</h2>
+                            <p class="text-slate-500">Vom Leitzins zur Inflation: Der "Black Box" auf der Spur</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-green-50 border-l-4 border-green-600 mb-8 rounded-r-lg">
+                        <h4 class="font-bold text-green-800 mb-1"><i class="fas fa-search"></i> Arbeitsauftrag</h4>
+                        <p class="text-sm text-green-900 leading-relaxed">
+                            Vergleichen Sie die "wirtschaftliche" mit der "monetären Analyse". Untersuchen Sie anschließend anhand des Flussdiagramms, wie eine Leitzinserhöhung (kontraktive Geldpolitik) die Preise dämpft. Welche Rolle spielen Erwartungen dabei?
+                        </p>
+                    </div>
+
+                    <!-- Grafik: Warenkorb (Pie Chart) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+                        <div class="lg:col-span-1 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center">
+                            <h4 class="font-bold text-slate-700 mb-4 text-center text-sm">Messung der Preisstabilität: Der HVPI-Warenkorb</h4>
+                            <div class="relative w-48 h-48">
+                                <canvas id="inflationChart"></canvas>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-4 text-center">Gewichtung der Ausgabenkategorien im Euroraum (schematisch)</p>
+                        </div>
+                        
+                        <div class="lg:col-span-2">
+                            <article class="academic-text text-sm">
+                                <h4 class="font-bold text-slate-800 mb-2">Die Metrik der Stabilität: Der HVPI</h4>
+                                <p class="mb-2">
+                                    Die EZB definiert Preisstabilität als einen Anstieg des Harmonisierten Verbraucherpreisindex (HVPI) von 2 % gegenüber dem Vorjahr. Der HVPI ist ein "Warenkorb", der das Konsumverhalten eines durchschnittlichen Haushalts im Euroraum abbildet.
+                                </p>
+                                <p>
+                                    <strong>Warum 2% und nicht 0%?</strong>
+                                </p>
+                                <ul class="list-disc pl-5 space-y-1 mb-2 marker:text-green-600">
+                                    <li><strong>Sicherheitsabstand zur Deflation:</strong> Deflation kann eine Abwärtsspirale aus sinkender Nachfrage und Investitionszurückhaltung auslösen, die geldpolitisch schwer zu bekämpfen ist (Liquiditätsfalle).</li>
+                                    <li><strong>Messfehler:</strong> Qualitätsverbesserungen von Produkten werden statistisch oft nicht vollständig erfasst, was die gemessene Inflation leicht überzeichnet.</li>
+                                    <li><strong>Anpassungsspielraum:</strong> Eine moderate Inflation erleichtert relative Preisanpassungen und verhindert Lohnstarrheiten nach unten.</li>
+                                </ul>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Grafik: Transmissionsmechanismus -->
+                    <div class="mb-10 p-8 bg-slate-50 rounded-xl border border-slate-200 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-green-200 text-green-800 text-xs px-2 py-1 rounded-bl-lg font-bold">WIRKUNGSKANÄLE</div>
+                        <h3 class="text-center font-bold text-slate-700 mb-8 uppercase tracking-widest text-sm">Der Transmissionsmechanismus (Kontraktive Politik)</h3>
+                        
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+                            <!-- Step 1 -->
+                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
+                                <div class="text-red-500 font-bold text-xl mb-1"><i class="fas fa-arrow-up"></i> Leitzinsen</div>
+                                <p class="text-xs text-slate-500">EZB erhöht Zinsen für Geschäftsbanken</p>
+                            </div>
+
+                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+
+                            <!-- Step 2 -->
+                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
+                                <div class="text-slate-700 font-bold mb-1">Finanzierungsbedingungen</div>
+                                <p class="text-xs text-slate-500">Kredite werden teurer<br>Sparzinsen steigen</p>
+                            </div>
+
+                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+
+                            <!-- Step 3 -->
+                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
+                                <div class="text-slate-700 font-bold mb-1">Gesamtwirtschaftliche Nachfrage</div>
+                                <p class="text-xs text-slate-500">Investitionen & Konsum sinken<br>(Sparanreiz steigt)</p>
+                            </div>
+
+                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+
+                            <!-- Step 4 -->
+                            <div class="bg-white p-4 rounded shadow-sm border border-green-200 w-full md:w-1/4 bg-green-50">
+                                <div class="text-green-700 font-bold text-xl mb-1"><i class="fas fa-arrow-down"></i> Preisniveau</div>
+                                <p class="text-xs text-slate-500">Preissetzungsspielraum der Unternehmen sinkt</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <div>
+                                <h5 class="font-bold text-xs text-slate-600 mb-2 uppercase">Wichtige Kanäle:</h5>
+                                <ul class="text-xs text-slate-600 space-y-1">
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Zinskanal:</strong> Kapital wird teurer.</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Kreditkanal:</strong> Banken vergeben weniger Kredite.</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Wechselkurskanal:</strong> Währungsaufwertung verbilligt Importe.</li>
+                                </ul>
+                             </div>
+                             <div>
+                                 <h5 class="font-bold text-xs text-slate-600 mb-2 uppercase">Das Problem der "Lags":</h5>
+                                 <p class="text-xs text-slate-500">
+                                     Geldpolitische Maßnahmen wirken nicht sofort. Man spricht von <strong>"Inside Lags"</strong> (Erkennen bis Handeln) und <strong>"Outside Lags"</strong> (Handeln bis Wirkung). Die volle Wirkung auf die Preise tritt oft erst nach 12-18 Monaten ein.
+                                 </p>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-green-500 pl-2">Ihre Analyse zum Transmissionsmechanismus:</label>
+                        <textarea id="note2" class="w-full h-40 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-green-500 focus:border-transparent save-local academic-text text-sm" placeholder="Erklären Sie die Wirkungskette. Warum ist die Verzögerung (Lag) problematisch für die Steuerung?"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: TRANSFER (VIDEO) -->
+            <div id="tab3" class="tab-content max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-video text-2xl text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Transferprojekt: Lernvideo</h2>
+                            <p class="text-slate-500">Didaktische Reduktion komplexer Inhalte</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-purple-50 border-l-4 border-purple-600 mb-8 rounded-r-lg">
+                        <h4 class="font-bold text-purple-800 mb-1"><i class="fas fa-pen-fancy"></i> Das Drehbuch</h4>
+                        <p class="text-sm text-purple-900 leading-relaxed">
+                            Erstellen Sie ein Konzept für ein 2-3 minütiges Video. <strong>Herausforderung:</strong> Erklären Sie einem Laien, warum die EZB die Zinsen erhöht, obwohl dies Kredite teurer macht ("Die bittere Medizin"). Nutzen Sie die Fachbegriffe aus Tab 1 und 2, aber übersetzen Sie diese in Alltagssprache.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Szene 1 -->
+                        <div class="border border-slate-200 p-6 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md transition">
+                            <div class="flex justify-between mb-2">
+                                <h3 class="font-bold text-slate-700">Szene 1: Der "Hook" (Einstieg)</h3>
+                                <span class="text-xs font-mono bg-purple-100 text-purple-800 px-2 py-1 rounded">0:00 - 0:30</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-3">Welches Alltagsproblem nutzen Sie? (z.B. Supermarkt, Tankstelle)</p>
+                            <textarea id="script_scene1" class="w-full h-24 p-3 border border-slate-300 rounded focus:ring-1 focus:ring-purple-500 save-local text-sm" placeholder="Beschreiben Sie Bild und Ton..."></textarea>
+                        </div>
+
+                        <!-- Szene 2 -->
+                        <div class="border border-slate-200 p-6 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md transition">
+                            <div class="flex justify-between mb-2">
+                                <h3 class="font-bold text-slate-700">Szene 2: Die Mechanik (Hauptteil)</h3>
+                                <span class="text-xs font-mono bg-purple-100 text-purple-800 px-2 py-1 rounded">0:30 - 1:45</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-3">Visualisierung des Zinsmechanismus. Analogie verwenden (z.B. Bremse im Auto).</p>
+                            <textarea id="script_scene2" class="w-full h-32 p-3 border border-slate-300 rounded focus:ring-1 focus:ring-purple-500 save-local text-sm" placeholder="Erklärung der Transmission in einfachen Worten..."></textarea>
+                        </div>
+
+                        <!-- Szene 3 -->
+                        <div class="border border-slate-200 p-6 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md transition">
+                            <div class="flex justify-between mb-2">
+                                <h3 class="font-bold text-slate-700">Szene 3: Fazit & Appell</h3>
+                                <span class="text-xs font-mono bg-purple-100 text-purple-800 px-2 py-1 rounded">1:45 - 2:30</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-3">Warum ist Stabilität gut für alle? (Planungssicherheit)</p>
+                            <textarea id="script_scene3" class="w-full h-24 p-3 border border-slate-300 rounded focus:ring-1 focus:ring-purple-500 save-local text-sm" placeholder="Zusammenfassung..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: WISSENSÜBERPRÜFUNG -->
+            <div id="tab4" class="tab-content max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-check-double text-2xl text-red-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Wissensüberprüfung</h2>
+                            <p class="text-slate-500">Mastery Check für die Abiturvorbereitung</p>
+                        </div>
+                    </div>
+
+                    <p class="mb-8 text-slate-600 bg-red-50 p-4 rounded border border-red-100 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i> Diese Fragen zielen auf ein tiefes Verständnis ab. Raten hilft nicht – nutzen Sie die Tabs 1 und 2 zur Recherche.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">1. Welche Unabhängigkeitsform verbietet die direkte Kreditvergabe an Staaten (Art. 123 AEUV)?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q1" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Personelle Unabhängigkeit</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q1" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Finanzielle Unabhängigkeit</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q1" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Institutionelle Unabhängigkeit</span>
+                                </label>
+                            </div>
+                            <div id="feedback1" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">2. Warum strebt die EZB 2% Inflation an und nicht 0%?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q2" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Weil 0% technisch nicht messbar ist.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q2" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Um die Staatsschulden schneller zu entwerten.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q2" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Als Sicherheitsabstand zur Deflation und für geldpolitischen Spielraum.</span>
+                                </label>
+                            </div>
+                            <div id="feedback2" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">3. Was versteht man unter dem "Zinskanal" im Transmissionsmechanismus?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q3" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Höhere Zinsen erhöhen Kapitalkosten, was Investitionen und Konsum dämpft.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q3" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Höhere Zinsen führen direkt zu niedrigeren Rohstoffpreisen.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q3" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Banken müssen mehr Zinsen an die EZB zahlen und vergeben deshalb mehr Kredite.</span>
+                                </label>
+                            </div>
+                            <div id="feedback3" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+                        
+                         <!-- Question 4 -->
+                         <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">4. Warum sind "Lags" (Verzögerungen) ein Problem für die Geldpolitik?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q4" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Weil die EZB zu langsam entscheidet.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q4" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Weil Maßnahmen erst wirken, wenn sich die Konjunktur vielleicht schon gedreht hat.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q4" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Weil Computerhandel an der Börse zu schnell ist.</span>
+                                </label>
+                            </div>
+                            <div id="feedback4" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <button onclick="checkQuiz()" class="bg-slate-800 text-white px-8 py-3 rounded-lg hover:bg-slate-700 transition shadow-lg w-full md:w-auto font-bold">
+                            <i class="fas fa-check-circle mr-2"></i> Antworten prüfen
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: REFLEXION -->
+            <div id="tab5" class="tab-content max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-smile text-2xl text-yellow-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-800">Reflexion & Metakognition</h2>
+                            <p class="text-slate-500">Lernen über das Lernen</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-10 text-center">
+                        <h4 class="font-bold text-gray-700 mb-6">Wie bewerten Sie Ihren Kompetenzzuwachs zur EZB-Politik?</h4>
+                        <div class="flex justify-center gap-8 max-w-2xl mx-auto">
+                            <label class="cursor-pointer text-center group transition transform hover:scale-110">
+                                <input type="radio" name="reflexion_smiley" value="1" class="hidden save-local-radio">
+                                <i class="far fa-frown text-5xl text-gray-300 group-hover:text-red-500 transition smiley-icon" data-val="1"></i>
+                                <div class="text-xs mt-2 font-medium text-slate-400">Gering</div>
+                            </label>
+                            <label class="cursor-pointer text-center group transition transform hover:scale-110">
+                                <input type="radio" name="reflexion_smiley" value="2" class="hidden save-local-radio">
+                                <i class="far fa-meh text-5xl text-gray-300 group-hover:text-orange-500 transition smiley-icon" data-val="2"></i>
+                            </label>
+                            <label class="cursor-pointer text-center group transition transform hover:scale-110">
+                                <input type="radio" name="reflexion_smiley" value="3" class="hidden save-local-radio">
+                                <i class="far fa-smile text-5xl text-gray-300 group-hover:text-yellow-500 transition smiley-icon" data-val="3"></i>
+                            </label>
+                            <label class="cursor-pointer text-center group transition transform hover:scale-110">
+                                <input type="radio" name="reflexion_smiley" value="4" class="hidden save-local-radio">
+                                <i class="far fa-laugh text-5xl text-gray-300 group-hover:text-green-500 transition smiley-icon" data-val="4"></i>
+                            </label>
+                            <label class="cursor-pointer text-center group transition transform hover:scale-110">
+                                <input type="radio" name="reflexion_smiley" value="5" class="hidden save-local-radio">
+                                <i class="far fa-laugh-beam text-5xl text-gray-300 group-hover:text-green-600 transition smiley-icon" data-val="5"></i>
+                                <div class="text-xs mt-2 font-medium text-slate-400">Hoch</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Detaillierte Selbsteinschätzung -->
+                    <div class="mb-8 border-t border-gray-200 pt-6">
+                        <h4 class="font-bold text-slate-700 mb-4">Detaillierte Kompetenz-Einschätzung</h4>
+                        <div class="space-y-4 bg-gray-50 p-6 rounded-lg border border-gray-100">
+                            <!-- Item 1 -->
+                            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-200 pb-3">
+                                <span class="text-sm font-medium text-slate-700 w-full md:w-2/3 mb-2 md:mb-0">Ich kann den Unterschied zwischen institutioneller und funktioneller Unabhängigkeit erklären.</span>
+                                <div class="flex space-x-6">
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_1" value="no" class="save-local-radio mr-2 text-red-500 focus:ring-red-500"> Nein</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_1" value="partly" class="save-local-radio mr-2 text-orange-500 focus:ring-orange-500"> Teilweise</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_1" value="yes" class="save-local-radio mr-2 text-green-500 focus:ring-green-500"> Ja</label>
+                                </div>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-200 pb-3">
+                                <span class="text-sm font-medium text-slate-700 w-full md:w-2/3 mb-2 md:mb-0">Ich habe den Transmissionsmechanismus (insb. den Zinskanal) verstanden.</span>
+                                <div class="flex space-x-6">
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_2" value="no" class="save-local-radio mr-2 text-red-500 focus:ring-red-500"> Nein</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_2" value="partly" class="save-local-radio mr-2 text-orange-500 focus:ring-orange-500"> Teilweise</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_2" value="yes" class="save-local-radio mr-2 text-green-500 focus:ring-green-500"> Ja</label>
+                                </div>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="flex flex-col md:flex-row justify-between items-center pb-3">
+                                <span class="text-sm font-medium text-slate-700 w-full md:w-2/3 mb-2 md:mb-0">Ich kann begründen, warum die EZB ein 2%-Ziel statt 0% verfolgt.</span>
+                                <div class="flex space-x-6">
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_3" value="no" class="save-local-radio mr-2 text-red-500 focus:ring-red-500"> Nein</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_3" value="partly" class="save-local-radio mr-2 text-orange-500 focus:ring-orange-500"> Teilweise</label>
+                                    <label class="text-sm cursor-pointer flex items-center"><input type="radio" name="self_check_3" value="yes" class="save-local-radio mr-2 text-green-500 focus:ring-green-500"> Ja</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Qualitative Reflexion -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-yellow-500 pl-2">Methodische Reflexion (Lernen durch Lehren):</label>
+                            <p class="text-xs text-slate-500 mb-2">Die Aufgabe war, ein komplexes Thema für 10.-Klässler didaktisch zu reduzieren. Inwiefern hat dieser Prozess Ihr eigenes Verständnis der Theorie geschärft?</p>
+                            <textarea id="ref_method" class="w-full h-40 p-4 bg-slate-50 border border-gray-300 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent save-local text-sm"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-yellow-500 pl-2">Politische Urteilskompetenz:</label>
+                            <p class="text-xs text-slate-500 mb-2">Die EZB ist extrem mächtig, aber nicht direkt vom Volk gewählt. Halten Sie die Mechanismen der Rechenschaftspflicht (z.B. Berichte an das EU-Parlament) für ausreichend? Begründen Sie.</p>
+                            <textarea id="ref_content" class="w-full h-40 p-4 bg-slate-50 border border-gray-300 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent save-local text-sm"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-yellow-500 pl-2">Offenes Fazit:</label>
+                        <p class="text-xs text-slate-500 mb-2">Was ist die wichtigste Erkenntnis, die Sie aus der heutigen Einheit mitnehmen?</p>
+                        <textarea id="reflection_text" class="w-full h-24 p-4 bg-slate-50 border border-gray-300 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent save-local text-sm"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Hidden Printable Area Template -->
+    <div id="printableArea" class="hidden">
+        <!-- Content will be injected by JS -->
+    </div>
+
+    <script>
+        // --- Navigation Logic ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-50', 'border-blue-600', 'text-blue-700');
+                btn.classList.add('border-transparent');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-blue-50', 'border-blue-600', 'text-blue-700');
+            activeBtn.classList.remove('border-transparent');
+            
+            // Re-render chart if tab2 is active to ensure animation plays
+            if(tabId === 'tab2') {
+               initChart();
+            }
+        }
+
+        // --- Chart.js Integration for Inflation Basket ---
+        let myChart = null;
+        function initChart() {
+            const ctx = document.getElementById('inflationChart');
+            if(!ctx) return;
+            
+            if(myChart) myChart.destroy();
+
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Dienstleistungen', 'Industriegüter', 'Lebensmittel', 'Energie'],
+                    datasets: [{
+                        data: [44, 26, 20, 10], // Beispielhafte Gewichtung
+                        backgroundColor: [
+                            '#3b82f6', // blue-500
+                            '#64748b', // slate-500
+                            '#22c55e', // green-500
+                            '#f59e0b'  // amber-500
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        }
+
+        // --- Local Storage Logic ---
+        function saveData() {
+            // Textareas
+            document.querySelectorAll('.save-local').forEach(input => {
+                localStorage.setItem(input.id, input.value);
+            });
+            // Radios (Generic for all groups)
+            document.querySelectorAll('input[type="radio"].save-local-radio:checked').forEach(radio => {
+                localStorage.setItem(radio.name, radio.value);
+            });
+        }
+
+        function loadData() {
+            // Textareas
+            document.querySelectorAll('.save-local').forEach(input => {
+                if (localStorage.getItem(input.id)) {
+                    input.value = localStorage.getItem(input.id);
+                }
+            });
+            
+            // Radios - Explicitly checking known groups to ensure correct loading UI
+            const radioGroups = ['reflexion_smiley', 'self_check_1', 'self_check_2', 'self_check_3'];
+            radioGroups.forEach(groupName => {
+                const val = localStorage.getItem(groupName);
+                if(val) {
+                    const radio = document.querySelector(`input[name="${groupName}"][value="${val}"]`);
+                    if(radio) {
+                        radio.checked = true;
+                        if(groupName === 'reflexion_smiley') highlightSmiley(val);
+                    }
+                }
+            });
+
+            initChart(); // Init chart on load
+        }
+
+        document.querySelectorAll('.save-local').forEach(input => input.addEventListener('input', saveData));
+        document.querySelectorAll('.save-local-radio').forEach(radio => {
+            radio.addEventListener('change', () => {
+                saveData();
+                if(radio.name === 'reflexion_smiley') highlightSmiley(radio.value);
+            });
+        });
+
+        function highlightSmiley(val) {
+            document.querySelectorAll('.smiley-icon').forEach(icon => {
+                icon.classList.remove('text-red-500', 'text-orange-500', 'text-yellow-500', 'text-green-500', 'text-green-600');
+                icon.classList.add('text-gray-300');
+                if(icon.dataset.val === val) {
+                   icon.classList.remove('text-gray-300');
+                   if(val==1) icon.classList.add('text-red-500');
+                   if(val==2) icon.classList.add('text-orange-500');
+                   if(val==3) icon.classList.add('text-yellow-500');
+                   if(val==4) icon.classList.add('text-green-500');
+                   if(val==5) icon.classList.add('text-green-600');
+                }
+            });
+        }
+
+        // --- Quiz Logic ---
+        function checkQuiz() {
+            function check(name, correctFeedback, wrongFeedback) {
+                const el = document.querySelector(`input[name="${name}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback${name.replace('q','')}`);
+                feedbackEl.classList.remove('hidden');
+                
+                if (el && el.value === 'correct') {
+                    feedbackEl.innerHTML = `<span class="text-green-600 font-bold flex items-center"><i class="fas fa-check-circle mr-2"></i> Richtig.</span> <span class="text-gray-600">${correctFeedback}</span>`;
+                    feedbackEl.classList.add('bg-green-50', 'border', 'border-green-200');
+                    feedbackEl.classList.remove('bg-red-50', 'border-red-200');
+                } else {
+                    feedbackEl.innerHTML = `<span class="text-red-600 font-bold flex items-center"><i class="fas fa-times-circle mr-2"></i> Falsch.</span> <span class="text-gray-600">${wrongFeedback}</span>`;
+                    feedbackEl.classList.add('bg-red-50', 'border', 'border-red-200');
+                    feedbackEl.classList.remove('bg-green-50', 'border-green-200');
+                }
+            }
+
+            check('q1', 'Staatsfinanzierung ist tabu, um die Druckerpresse vor der Politik zu schützen.', 'Denken Sie an Art. 123 AEUV.');
+            check('q2', 'Ein Puffer gegen die Liquiditätsfalle ist notwendig.', 'Bei 0% droht Deflation.');
+            check('q3', 'Höhere Zinsen verteuern Investitionen und Sparen wird attraktiver.', 'Zinsen wirken auf die Nachfrage, nicht direkt auf Rohstoffpreise.');
+            check('q4', 'Das "Timing" ist entscheidend. Maßnahmen wirken oft erst nach 18 Monaten.', 'Entscheidungen dauern nicht lange, aber die Wirkung im Markt schon.');
+        }
+
+        // --- PDF Generation Logic ---
+        function generatePDF() {
+            const printArea = document.getElementById('printableArea');
+            const date = new Date().toLocaleDateString('de-DE');
+            
+            const note1 = document.getElementById('note1').value || "(Keine Eingabe)";
+            const note2 = document.getElementById('note2').value || "(Keine Eingabe)";
+            const s1 = document.getElementById('script_scene1').value || "-";
+            const s2 = document.getElementById('script_scene2').value || "-";
+            const s3 = document.getElementById('script_scene3').value || "-";
+            
+            // New Reflection Values
+            const refMethod = document.getElementById('ref_method').value || "(Keine Eingabe)";
+            const refContent = document.getElementById('ref_content').value || "(Keine Eingabe)";
+            const refFinal = document.getElementById('reflection_text').value || "(Keine Eingabe)";
+            
+            // Radio Helper
+            const getRadioVal = (name) => {
+                const el = document.querySelector(`input[name="${name}"]:checked`);
+                const map = { 'no': 'Nein', 'partly': 'Teilweise', 'yes': 'Ja' };
+                return el ? (map[el.value] || el.value) : '-';
+            };
+            
+            const check1 = getRadioVal('self_check_1');
+            const check2 = getRadioVal('self_check_2');
+            const check3 = getRadioVal('self_check_3');
+
+            printArea.innerHTML = `
+                <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 40px; color: #333;">
+                    <div style="border-bottom: 2px solid #1e3a8a; padding-bottom: 20px; margin-bottom: 30px;">
+                        <h1 style="margin: 0; font-size: 28px; color: #1e3a8a;">Portfolio: Geldpolitik</h1>
+                        <p style="margin: 10px 0 0 0; color: #666; font-size: 14px;">Kursstufe 13 | Datum: ${date}</p>
+                    </div>
+
+                    <div style="margin-bottom: 40px;">
+                        <h2 style="font-size: 16px; color: #1e40af; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">1. Mandat & Institution</h2>
+                        <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #1e40af; font-size: 14px; line-height: 1.6;">${note1}</div>
+                    </div>
+
+                    <div style="margin-bottom: 40px;">
+                        <h2 style="font-size: 16px; color: #166534; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">2. Transmission & Strategie</h2>
+                        <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #166534; font-size: 14px; line-height: 1.6;">${note2}</div>
+                    </div>
+
+                    <div style="margin-bottom: 40px;">
+                        <h2 style="font-size: 16px; color: #6b21a8; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">3. Videokonzept (Drehbuch)</h2>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                            <tr style="background-color: #f3f4f6;">
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; width: 25%; font-weight: bold;">Szene 1 (Intro)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb;">${s1}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 2 (Mechanik)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb;">${s2}</td>
+                            </tr>
+                            <tr style="background-color: #f3f4f6;">
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 3 (Fazit)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb;">${s3}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="margin-bottom: 40px; page-break-inside: avoid;">
+                        <h2 style="font-size: 16px; color: #854d0e; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">4. Reflexion & Metakognition</h2>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">Selbsteinschätzung:</h3>
+                            <ul style="list-style: none; padding: 0; font-size: 13px;">
+                                <li style="margin-bottom: 5px;">• Unterschiede Unabhängigkeit: <strong>${check1}</strong></li>
+                                <li style="margin-bottom: 5px;">• Transmissionsmechanismus: <strong>${check2}</strong></li>
+                                <li style="margin-bottom: 5px;">• Begründung 2%-Ziel: <strong>${check3}</strong></li>
+                            </ul>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Methodische Reflexion:</h3>
+                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refMethod}</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Politische Urteilskompetenz:</h3>
+                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refContent}</div>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Fazit:</h3>
+                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refFinal}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.print();
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
