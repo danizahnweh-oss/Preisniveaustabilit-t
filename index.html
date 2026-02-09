@@ -538,9 +538,41 @@
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-8">
                         <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-green-500 pl-2">Ihre Analyse zum Transmissionsmechanismus:</label>
                         <textarea id="note2" class="w-full h-40 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-green-500 focus:border-transparent save-local academic-text text-sm" placeholder="Erklären Sie die Wirkungskette. Warum ist die Verzögerung (Lag) problematisch für die Steuerung?"></textarea>
+                    </div>
+
+                    <!-- NEW: Current Report Section with provided December 2025 Content -->
+                    <div class="bg-gray-100 p-6 rounded-lg border border-gray-300">
+                        <h3 class="text-xl font-bold text-slate-700 mb-4 flex items-center">
+                            <span class="bg-slate-700 text-white p-2 rounded mr-3 text-sm">AKTUELL</span>
+                            Analyse des EZB-Wirtschaftsberichts (Dezember 2025)
+                        </h3>
+                        <div class="p-4 bg-white rounded border border-gray-200 mb-4 academic-text text-sm">
+                            <h4 class="font-bold mb-2">Zusammenfassung der geldpolitischen Lage</h4>
+                            <p class="mb-3">
+                                <strong>Beschlüsse:</strong> Der EZB-Rat hat am 18. Dezember 2025 entschieden, die Leitzinsen unverändert zu lassen (Einlagefazilität bei 2,00 %). Die Wertpapierbestände (APP/PEPP) werden weiter reduziert.
+                            </p>
+                            <p class="mb-3">
+                                <strong>Inflationsausblick:</strong> Die Inflation stabilisiert sich mittelfristig beim Zielwert von 2 % (Prognose 2026: 1,9 %). Während Energiepreise sinken, bleibt die <em>Dienstleistungsinflation</em> (3,5 % im November) aufgrund starken Lohnwachstums hartnäckig hoch. Für 2026 wurde die Inflationsprognose daher leicht nach oben korrigiert.
+                            </p>
+                            <p class="mb-3">
+                                <strong>Konjunktur & Risiken:</strong> Die Wirtschaft wächst robust (Prognose 2025: 1,4 %), getrieben durch die Binnennachfrage und einen starken Arbeitsmarkt (Arbeitslosenquote 6,4 %). Außenwirtschaftlich bestehen jedoch Risiken durch geopolitische Spannungen (Russland/Ukraine) und handelspolitische Unsicherheiten (US-Zölle).
+                            </p>
+                            <p>
+                                <strong>Strategiewechsel:</strong> Der EZB-Rat betont eine strikte <em>Datenabhängigkeit</em> ("Meeting-by-Meeting"-Ansatz) und verzichtet explizit auf eine "Forward Guidance" (Vorab-Festlegung auf einen Zinspfad), um flexibel auf strukturelle Herausforderungen wie die grüne Transformation reagieren zu können.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-blue-50 border-l-4 border-blue-600 mb-4 rounded-r">
+                            <h5 class="font-bold text-blue-800 text-sm">Arbeitsauftrag zur Analyse:</h5>
+                            <p class="text-sm text-blue-900 mt-1">
+                                Untersuchen Sie den Text auf folgende Aspekte: 
+                                1. Warum ist die "Dienstleistungsinflation" aktuell problematischer als die Energiepreise? 
+                                2. Inwiefern stellen externe Faktoren (US-Zölle, Geopolitik) ein Risiko für die gerade erreichte Preisstabilität dar?
+                            </p>
+                        </div>
+                        <textarea id="note_report" class="w-full h-32 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-slate-500 focus:border-transparent save-local academic-text text-sm" placeholder="Notieren Sie hier Ihre Analyseergebnisse..."></textarea>
                     </div>
                 </div>
             </div>
@@ -617,7 +649,7 @@
                     </p>
 
                     <div class="space-y-6">
-                        <!-- Question 1 -->
+                        <!-- Questions 1-8 (Existing) -->
                         <div class="p-6 border rounded-lg hover:border-red-200 transition">
                             <p class="font-bold mb-3 text-slate-800">1. Welche Unabhängigkeitsform verbietet die direkte Kreditvergabe an Staaten (Art. 123 AEUV)?</p>
                             <div class="space-y-2 text-sm">
@@ -637,7 +669,6 @@
                             <div id="feedback1" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
                         </div>
 
-                        <!-- Question 2 -->
                         <div class="p-6 border rounded-lg hover:border-red-200 transition">
                             <p class="font-bold mb-3 text-slate-800">2. Warum strebt die EZB 2% Inflation an und nicht 0%?</p>
                             <div class="space-y-2 text-sm">
@@ -657,7 +688,6 @@
                             <div id="feedback2" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
                         </div>
 
-                        <!-- Question 3 -->
                         <div class="p-6 border rounded-lg hover:border-red-200 transition">
                             <p class="font-bold mb-3 text-slate-800">3. Was versteht man unter dem "Zinskanal" im Transmissionsmechanismus?</p>
                             <div class="space-y-2 text-sm">
@@ -677,7 +707,6 @@
                             <div id="feedback3" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
                         </div>
                         
-                         <!-- Question 4 -->
                          <div class="p-6 border rounded-lg hover:border-red-200 transition">
                             <p class="font-bold mb-3 text-slate-800">4. Warum sind "Lags" (Verzögerungen) ein Problem für die Geldpolitik?</p>
                             <div class="space-y-2 text-sm">
@@ -696,6 +725,123 @@
                             </div>
                             <div id="feedback4" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
                         </div>
+
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">5. Was ist das primäre Ziel von Anleihekaufprogrammen (Quantitative Easing)?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q5" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Liquidität in den Markt pumpen und langfristige Zinsen senken, wenn der Leitzins bereits bei 0% ist.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q5" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Staaten direkt zu finanzieren, um Haushaltsdefizite auszugleichen.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q5" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Die Inflation künstlich anzuheizen, um die Preise zu verdoppeln.</span>
+                                </label>
+                            </div>
+                            <div id="feedback5" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">6. Was passiert mit dem Realzins, wenn die Inflation steigt, aber der Nominalzins gleich bleibt?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q6" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Der Realzins sinkt (wird ggf. negativ), was Kreditaufnahme attraktiver macht.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q6" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Der Realzins steigt, da Geld weniger wert ist.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q6" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Der Realzins bleibt unberührt, da er unabhängig von der Inflation ist.</span>
+                                </label>
+                            </div>
+                            <div id="feedback6" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">7. Welche Auswirkung hat eine Leitzinssenkung der EZB (ceteris paribus) auf den Euro-Wechselkurs?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q7" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Der Euro wertet tendenziell ab, da Anlagen im Euroraum weniger Rendite bringen (Kapitalflucht).</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q7" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Der Euro wertet auf, weil billiges Geld die Wirtschaft stärkt.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q7" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Es gibt keinen Zusammenhang zwischen Zinsen und Wechselkursen.</span>
+                                </label>
+                            </div>
+                            <div id="feedback7" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">8. Was bewirkt eine Erhöhung des Mindestreservesatzes durch die EZB?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q8" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Sie verknappt die Liquidität der Geschäftsbanken, da diese mehr Geld unverzinslich bei der EZB hinterlegen müssen.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q8" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Sie erhöht die Gewinne der Geschäftsbanken massiv.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q8" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Sie dient primär dazu, den Wechselkurs zu stabilisieren.</span>
+                                </label>
+                            </div>
+                            <div id="feedback8" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <!-- Question 9: Forward Guidance vs Data Dependence -->
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">9. Was bedeutet der Strategiewechsel hin zu "Datenabhängigkeit" (Data-Dependence) statt "Forward Guidance"?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q9" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Die EZB entscheidet von Sitzung zu Sitzung neu basierend auf aktuellen Wirtschaftsdaten, statt langfristige Zinsversprechen zu geben.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q9" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Die EZB verlässt sich nur noch auf KI-Datenmodelle ohne menschliche Entscheidung.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q9" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Die Zinsen werden automatisch an die Inflationsrate des Vormonats gekoppelt.</span>
+                                </label>
+                            </div>
+                            <div id="feedback9" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
+                        <!-- Question 10: Inflation Components -->
+                        <div class="p-6 border rounded-lg hover:border-red-200 transition">
+                            <p class="font-bold mb-3 text-slate-800">10. Warum ist die Dienstleistungsinflation oft "hartnäckiger" als die Inflation bei Waren oder Energie?</p>
+                            <div class="space-y-2 text-sm">
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q10" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Weil Dienstleistungen stärker von den globalen Ölpreisen abhängen.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q10" value="correct" class="form-radio text-green-600 h-4 w-4">
+                                    <span>Weil sie stark arbeitsintensiv ist und somit direkt vom Lohnwachstum getrieben wird.</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition">
+                                    <input type="radio" name="q10" value="wrong" class="form-radio text-red-600 h-4 w-4">
+                                    <span>Weil Dienstleistungen seltener konsumiert werden als Waren.</span>
+                                </label>
+                            </div>
+                            <div id="feedback10" class="hidden mt-3 text-sm p-3 bg-gray-50 rounded"></div>
+                        </div>
+
                     </div>
 
                     <div class="mt-8">
@@ -1001,6 +1147,12 @@
             check('q2', 'Ein Puffer gegen die Liquiditätsfalle ist notwendig.', 'Bei 0% droht Deflation.');
             check('q3', 'Höhere Zinsen verteuern Investitionen und Sparen wird attraktiver.', 'Zinsen wirken auf die Nachfrage, nicht direkt auf Rohstoffpreise.');
             check('q4', 'Das "Timing" ist entscheidend. Maßnahmen wirken oft erst nach 18 Monaten.', 'Entscheidungen dauern nicht lange, aber die Wirkung im Markt schon.');
+            check('q5', 'Liquidität in den Markt pumpen und langfristige Zinsen senken, wenn der Leitzins bereits bei 0% ist.', 'QE ist ein Instrument für die Nullzins-Grenze.');
+            check('q6', 'Der Realzins sinkt (wird ggf. negativ), was Kreditaufnahme attraktiver macht.', 'Realzins = Nominalzins - Inflation.');
+            check('q7', 'Der Euro wertet tendenziell ab, da Anlagen im Euroraum weniger Rendite bringen (Kapitalflucht).', 'Zinsdifferenzen treiben Kapitalströme.');
+            check('q8', 'Sie verknappt die Liquidität der Geschäftsbanken, da diese mehr Geld unverzinslich bei der EZB hinterlegen müssen.', 'Es ist ein Instrument zur Geldmengensteuerung.');
+            check('q9', 'Die EZB entscheidet von Sitzung zu Sitzung neu basierend auf aktuellen Wirtschaftsdaten, statt langfristige Zinsversprechen zu geben.', 'Flexibilität ist in unsicheren Zeiten Trumpf.');
+            check('q10', 'Weil sie stark arbeitsintensiv ist und somit direkt vom Lohnwachstum getrieben wird.', 'Löhne reagieren langsamer als Ölpreise.');
         }
 
         // --- PDF Generation Logic ---
@@ -1010,6 +1162,7 @@
             
             const note1 = document.getElementById('note1').value || "(Keine Eingabe)";
             const note2 = document.getElementById('note2').value || "(Keine Eingabe)";
+            const noteReport = document.getElementById('note_report').value || "(Keine Eingabe)";
             const s1 = document.getElementById('script_scene1').value || "-";
             const s2 = document.getElementById('script_scene2').value || "-";
             const s3 = document.getElementById('script_scene3').value || "-";
@@ -1038,8 +1191,13 @@
                         <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #1e40af; font-size: 14px; line-height: 1.6;">${note1}</div>
                     </div>
                     <div style="margin-bottom: 40px;">
-                        <h2 style="font-size: 16px; color: #166534; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">2. Transmission & Strategie</h2>
-                        <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #166534; font-size: 14px; line-height: 1.6;">${note2}</div>
+                        <h2 style="font-size: 16px; color: #166534; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">2. Strategie, Transmission & Aktuelles</h2>
+                        <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #166534; font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
+                            <strong>Transmission:</strong><br>${note2}
+                        </div>
+                        <div style="background: #f0fdf4; padding: 15px; border-left: 4px solid #15803d; font-size: 14px; line-height: 1.6;">
+                            <strong>Analyse EZB-Bericht:</strong><br>${noteReport}
+                        </div>
                     </div>
                     <div style="margin-bottom: 40px;">
                         <h2 style="font-size: 16px; color: #6b21a8; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">3. Videokonzept</h2>
