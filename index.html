@@ -115,6 +115,16 @@
         details > summary::-webkit-details-marker {
             display: none;
         }
+        
+        /* Toggle Switch Animation */
+        .scenario-btn {
+            transition: all 0.3s;
+        }
+        .scenario-btn.active-scenario {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            border-color: #2563eb;
+        }
     </style>
 </head>
 <body class="text-gray-800 h-screen flex flex-col overflow-hidden">
@@ -318,7 +328,7 @@
                     <div class="p-5 bg-green-50 border-l-4 border-green-600 mb-8 rounded-r-lg">
                         <h4 class="font-bold text-green-800 mb-1"><i class="fas fa-search"></i> Arbeitsauftrag</h4>
                         <p class="text-sm text-green-900 leading-relaxed">
-                            Vergleichen Sie die "wirtschaftliche" mit der "monetären Analyse". Untersuchen Sie anschließend anhand des Flussdiagramms, wie eine Leitzinserhöhung (kontraktive Geldpolitik) die Preise dämpft. Welche Rolle spielen Erwartungen dabei?
+                            Analysieren Sie die Wirkungsketten. Vergleichen Sie den Transmissionsmechanismus bei einer <strong>Zinserhöhung (Kontraktion)</strong> mit einer <strong>Zinssenkung (Expansion)</strong>, indem Sie die Szenarien umschalten. Dokumentieren Sie die Unterschiede.
                         </p>
                     </div>
 
@@ -352,38 +362,86 @@
 
                     <!-- Grafik: Transmissionsmechanismus -->
                     <div class="mb-10 p-8 bg-slate-50 rounded-xl border border-slate-200 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-green-200 text-green-800 text-xs px-2 py-1 rounded-bl-lg font-bold">WIRKUNGSKANÄLE</div>
-                        <h3 class="text-center font-bold text-slate-700 mb-8 uppercase tracking-widest text-sm">Der Transmissionsmechanismus (Kontraktive Politik)</h3>
                         
-                        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-                            <!-- Step 1 -->
-                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
-                                <div class="text-red-500 font-bold text-xl mb-1"><i class="fas fa-arrow-up"></i> Leitzinsen</div>
-                                <p class="text-xs text-slate-500">EZB erhöht Zinsen für Geschäftsbanken</p>
+                        <!-- Toggle Controls -->
+                        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+                            <button onclick="switchChain('contractive')" id="btn-contractive" class="scenario-btn active-scenario px-6 py-2 rounded-full border border-gray-300 font-bold text-sm shadow-sm hover:shadow-md flex items-center justify-center">
+                                <i class="fas fa-arrow-up mr-2"></i> Kontraktive Politik (Inflation bekämpfen)
+                            </button>
+                            <button onclick="switchChain('expansive')" id="btn-expansive" class="scenario-btn bg-white text-gray-600 px-6 py-2 rounded-full border border-gray-300 font-bold text-sm shadow-sm hover:shadow-md flex items-center justify-center">
+                                <i class="fas fa-arrow-down mr-2"></i> Expansive Politik (Deflation bekämpfen)
+                            </button>
+                        </div>
+
+                        <!-- KONTRAKTIVE KETTE -->
+                        <div id="chain-contractive" class="transition-opacity duration-500">
+                            <div class="absolute top-0 right-0 bg-red-100 text-red-800 text-xs px-3 py-1 rounded-bl-lg font-bold">SZENARIO: HOHE INFLATION</div>
+                            <h3 class="text-center font-bold text-slate-700 mb-8 uppercase tracking-widest text-sm">Wirkungskette: Zinserhöhung</h3>
+                            
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+                                <!-- Step 1 -->
+                                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-red-500 w-full md:w-1/4">
+                                    <div class="text-red-600 font-bold text-xl mb-1"><i class="fas fa-arrow-up"></i> Leitzinsen</div>
+                                    <p class="text-xs text-slate-500">EZB erhöht Zinsen ("Verteuerung des Geldes")</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 2 -->
+                                <div class="bg-white p-4 rounded shadow-sm border border-slate-200 w-full md:w-1/4">
+                                    <div class="text-slate-700 font-bold mb-1">Finanzierung</div>
+                                    <p class="text-xs text-slate-500">Kredite teurer<br>Sparen attraktiver</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 3 -->
+                                <div class="bg-white p-4 rounded shadow-sm border border-slate-200 w-full md:w-1/4">
+                                    <div class="text-slate-700 font-bold mb-1">Nachfrage</div>
+                                    <p class="text-xs text-slate-500">Investitionen & Konsum sinken</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 4 -->
+                                <div class="bg-green-50 p-4 rounded shadow-sm border border-green-200 w-full md:w-1/4">
+                                    <div class="text-green-700 font-bold text-xl mb-1"><i class="fas fa-arrow-down"></i> Preisniveau</div>
+                                    <p class="text-xs text-slate-500">Inflationsdruck nimmt ab</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- EXPANSIVE KETTE -->
+                        <div id="chain-expansive" class="hidden transition-opacity duration-500">
+                            <div class="absolute top-0 right-0 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-bl-lg font-bold">SZENARIO: REZESSION / DEFLATION</div>
+                            <h3 class="text-center font-bold text-slate-700 mb-8 uppercase tracking-widest text-sm">Wirkungskette: Zinssenkung</h3>
+                            
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+                                <!-- Step 1 -->
+                                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-blue-500 w-full md:w-1/4">
+                                    <div class="text-blue-600 font-bold text-xl mb-1"><i class="fas fa-arrow-down"></i> Leitzinsen</div>
+                                    <p class="text-xs text-slate-500">EZB senkt Zinsen ("Billiges Geld")</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 2 -->
+                                <div class="bg-white p-4 rounded shadow-sm border border-slate-200 w-full md:w-1/4">
+                                    <div class="text-slate-700 font-bold mb-1">Finanzierung</div>
+                                    <p class="text-xs text-slate-500">Kredite billiger<br>Sparen unattraktiv</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 3 -->
+                                <div class="bg-white p-4 rounded shadow-sm border border-slate-200 w-full md:w-1/4">
+                                    <div class="text-slate-700 font-bold mb-1">Nachfrage</div>
+                                    <p class="text-xs text-slate-500">Investitionen & Konsum steigen</p>
+                                </div>
+                                <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
+                                <!-- Step 4 -->
+                                <div class="bg-green-50 p-4 rounded shadow-sm border border-green-200 w-full md:w-1/4">
+                                    <div class="text-green-700 font-bold text-xl mb-1"><i class="fas fa-arrow-up"></i> Preisniveau</div>
+                                    <p class="text-xs text-slate-500">Preise steigen (Weg aus Deflation)</p>
+                                </div>
                             </div>
 
-                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
-
-                            <!-- Step 2 -->
-                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
-                                <div class="text-slate-700 font-bold mb-1">Finanzierungsbedingungen</div>
-                                <p class="text-xs text-slate-500">Kredite werden teurer<br>Sparzinsen steigen</p>
-                            </div>
-
-                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
-
-                            <!-- Step 3 -->
-                            <div class="bg-white p-4 rounded shadow-sm border border-slate-300 w-full md:w-1/4">
-                                <div class="text-slate-700 font-bold mb-1">Gesamtwirtschaftliche Nachfrage</div>
-                                <p class="text-xs text-slate-500">Investitionen & Konsum sinken<br>(Sparanreiz steigt)</p>
-                            </div>
-
-                            <div class="flow-arrow md:w-8 h-8 md:h-auto"></div>
-
-                            <!-- Step 4 -->
-                            <div class="bg-white p-4 rounded shadow-sm border border-green-200 w-full md:w-1/4 bg-green-50">
-                                <div class="text-green-700 font-bold text-xl mb-1"><i class="fas fa-arrow-down"></i> Preisniveau</div>
-                                <p class="text-xs text-slate-500">Preissetzungsspielraum der Unternehmen sinkt</p>
+                            <!-- Additional Academic Context for Expansive Policy -->
+                            <div class="mt-8 bg-blue-50 p-4 rounded border-l-4 border-blue-400 text-sm text-slate-700">
+                                <h5 class="font-bold text-blue-900 mb-2"><i class="fas fa-book-reader mr-2"></i> Theorie-Vertiefung: Grenzen der expansiven Politik</h5>
+                                <p>
+                                    Während Zinserhöhungen technisch fast unbegrenzt möglich sind, stößt expansive Politik an Grenzen. Wenn die Zinsen bereits bei 0 % liegen, kann die Zentralbank sie kaum weiter senken ("Zero Lower Bound"). In diesem Fall greift der Zinskanal nicht mehr, da Haushalte Liquidität horten statt zu konsumieren. Dieses Phänomen nennt Keynes die <strong>Liquiditätsfalle</strong>. In solchen Fällen greift die EZB zu "unorthodoxen Maßnahmen" wie dem Ankauf von Staatsanleihen (Quantitative Easing).
+                                </p>
                             </div>
                         </div>
                         
@@ -391,9 +449,9 @@
                              <div>
                                 <h5 class="font-bold text-xs text-slate-600 mb-2 uppercase">Wichtige Kanäle:</h5>
                                 <ul class="text-xs text-slate-600 space-y-1">
-                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Zinskanal:</strong> Kapital wird teurer.</li>
-                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Kreditkanal:</strong> Banken vergeben weniger Kredite.</li>
-                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Wechselkurskanal:</strong> Währungsaufwertung verbilligt Importe.</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Zinskanal:</strong> Beeinflusst Kapitalkosten (Investitionen).</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Kreditkanal:</strong> Beeinflusst Kreditvergabevolumen der Banken.</li>
+                                    <li><i class="fas fa-check text-green-500 mr-1"></i> <strong>Vermögenskanal:</strong> Niedrige Zinsen erhöhen Aktien-/Immobilienwerte -> Vermögenseffekt.</li>
                                 </ul>
                              </div>
                              <div>
@@ -694,6 +752,38 @@
             // Re-render chart if tab2 is active to ensure animation plays
             if(tabId === 'tab2') {
                initChart();
+            }
+        }
+        
+        // --- Scenario Switcher Logic (Tab 2) ---
+        function switchChain(scenario) {
+            const chainContractive = document.getElementById('chain-contractive');
+            const chainExpansive = document.getElementById('chain-expansive');
+            const btnContractive = document.getElementById('btn-contractive');
+            const btnExpansive = document.getElementById('btn-expansive');
+            
+            if(scenario === 'contractive') {
+                chainContractive.classList.remove('hidden');
+                chainExpansive.classList.add('hidden');
+                
+                // Style Active Button
+                btnContractive.classList.add('active-scenario');
+                btnContractive.classList.remove('bg-white', 'text-gray-600');
+                
+                // Style Inactive Button
+                btnExpansive.classList.remove('active-scenario');
+                btnExpansive.classList.add('bg-white', 'text-gray-600');
+            } else {
+                chainContractive.classList.add('hidden');
+                chainExpansive.classList.remove('hidden');
+                
+                // Style Active Button
+                btnExpansive.classList.add('active-scenario');
+                btnExpansive.classList.remove('bg-white', 'text-gray-600');
+                
+                // Style Inactive Button
+                btnContractive.classList.remove('active-scenario');
+                btnContractive.classList.add('bg-white', 'text-gray-600');
             }
         }
 
