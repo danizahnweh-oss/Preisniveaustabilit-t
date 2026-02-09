@@ -125,6 +125,17 @@
             color: white;
             border-color: #2563eb;
         }
+
+        /* Legal Text Styling */
+        .legal-text {
+            font-family: 'Merriweather', serif;
+            background-color: #fffbeb; /* amber-50 */
+            border-left: 4px solid #d97706; /* amber-600 */
+            padding: 1.5rem;
+            color: #451a03;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body class="text-gray-800 h-screen flex flex-col overflow-hidden">
@@ -188,126 +199,190 @@
             
             <!-- TAB 1: MANDAT & UNABHÄNGIGKEIT -->
             <div id="tab1" class="tab-content active max-w-5xl mx-auto">
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                
+                <!-- GATEKEEPER SECTION: Art 127 AEUV -->
+                <div id="tab1-gatekeeper" class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
                     <div class="flex items-center mb-6">
-                        <div class="bg-blue-100 p-3 rounded-full mr-4">
-                            <i class="fas fa-landmark text-2xl text-blue-600"></i>
+                        <div class="bg-amber-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-balance-scale text-2xl text-amber-700"></i>
                         </div>
                         <div>
-                            <h2 class="text-3xl font-bold text-slate-800">Das Primat der Preisstabilität</h2>
-                            <p class="text-slate-500">Institutionelle Architektur, Governance und Legitimation</p>
-                        </div>
-                    </div>
-                    
-                    <div class="p-5 bg-blue-50 border-l-4 border-blue-600 mb-8 rounded-r-lg">
-                        <h4 class="font-bold text-blue-800 mb-1"><i class="fas fa-graduation-cap"></i> Arbeitsauftrag</h4>
-                        <p class="text-sm text-blue-900 leading-relaxed">
-                            Analysieren Sie die institutionelle Struktur der EZB. Differenzieren Sie zwischen dem <strong>Direktorium</strong> und dem <strong>EZB-Rat</strong> hinsichtlich ihrer Aufgaben. Erläutern Sie im Notizfeld zudem das Spannungsfeld zwischen Unabhängigkeit und demokratischer Legitimation.
-                        </p>
-                    </div>
-
-                    <!-- Grafik: Die 4 Säulen der Unabhängigkeit -->
-                    <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
-                        <h3 class="text-center font-bold text-slate-700 mb-6 uppercase tracking-widest text-sm">Das Fundament der EZB (Art. 127 AEUV)</h3>
-                        
-                        <!-- Dach -->
-                        <div class="bg-blue-900 text-white text-center py-4 rounded-t-lg shadow-lg mb-1 mx-4 relative z-10">
-                            <h4 class="font-bold text-lg">PRIMÄRZIEL: PREISSTABILITÄT</h4>
-                        </div>
-                        
-                        <!-- Säulen Container -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-4">
-                            <!-- Säule 1 -->
-                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
-                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-university"></i></div>
-                                <h5 class="font-bold text-sm mb-2">Institutionell</h5>
-                                <p class="text-xs text-slate-500">Keine Weisungen von Regierungen (Art. 130 AEUV).</p>
-                            </div>
-                            <!-- Säule 2 -->
-                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
-                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-users-cog"></i></div>
-                                <h5 class="font-bold text-sm mb-2">Personell</h5>
-                                <p class="text-xs text-slate-500">Lange Amtszeit (8 Jahre), keine Wiederwahl.</p>
-                            </div>
-                            <!-- Säule 3 -->
-                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
-                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-coins"></i></div>
-                                <h5 class="font-bold text-sm mb-2">Finanziell</h5>
-                                <p class="text-xs text-slate-500">Eigener Haushalt, Verbot monetärer Staatsfinanzierung.</p>
-                            </div>
-                            <!-- Säule 4 -->
-                            <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
-                                <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-cogs"></i></div>
-                                <h5 class="font-bold text-sm mb-2">Funktionell</h5>
-                                <p class="text-xs text-slate-500">Freie Wahl der Instrumente zur Zielerreichung.</p>
-                            </div>
+                            <h2 class="text-3xl font-bold text-slate-800">Quellenarbeit: Art. 127 AEUV</h2>
+                            <p class="text-slate-500">Die verfassungsrechtliche Grundlage der Geldpolitik</p>
                         </div>
                     </div>
 
-                    <article class="academic-text mb-8">
+                    <div class="p-4 bg-amber-50 border-l-4 border-amber-600 mb-6">
+                        <h4 class="font-bold text-amber-800"><i class="fas fa-search-plus"></i> Arbeitsauftrag:</h4>
+                        <p class="text-sm text-amber-900">Lesen Sie den Auszug aus dem Vertrag über die Arbeitsweise der Europäischen Union (AEUV). Beantworten Sie anschließend die Kontrollfragen, um die vertiefende Analyse freizuschalten.</p>
+                    </div>
+
+                    <div class="legal-text mb-8 rounded shadow-inner">
+                        <p class="font-bold mb-2">Art. 127 (ex-Artikel 105 EGV)</p>
                         <p class="mb-4">
-                            Die Geldpolitik des Eurosystems basiert auf der verfassungsrechtlichen Verankerung im Artikel 127 AEUV. Dem Europäischen System der Zentralbanken (ESZB) wird das eindeutige Primat der Preisstabilität zugewiesen. Im Gegensatz zum dualen Mandat der US-amerikanischen Fed ist die Unterstützung der allgemeinen Wirtschaftspolitik in der EU dem Ziel der Geldwertstabilität untergeordnet.
+                            (1) Das <strong>vorrangige Ziel</strong> des Europäischen Systems der Zentralbanken (im Folgenden "ESZB") ist es, die <strong>Preisstabilität</strong> zu gewährleisten. Soweit dies ohne Beeinträchtigung des Zieles der Preisstabilität möglich ist, unterstützt das ESZB die allgemeine Wirtschaftspolitik in der Union, um zur Verwirklichung der in Artikel 3 des Vertrags über die Europäische Union festgelegten Ziele der Union beizutragen. Das ESZB handelt im Einklang mit dem Grundsatz einer offenen Marktwirtschaft mit freiem Wettbewerb [...]
                         </p>
-                        
-                        <details class="group mb-8">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer list-none bg-slate-100 p-4 rounded-lg hover:bg-slate-200 transition">
-                                <span><i class="fas fa-book-open mr-2 text-blue-600"></i> Exkurs: Das Time-Inconsistency-Problem</span>
-                                <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
-                            </summary>
-                            <div class="text-slate-600 mt-3 group-open:animate-fadeIn px-4 pb-4 bg-slate-50 rounded-b-lg border-x border-b border-slate-100">
-                                <p>
-                                    Ökonomisch lässt sich die Unabhängigkeit durch die Theorie der rationalen Erwartungen begründen. Eine Zentralbank unter politischem Einfluss neigt dazu, kurzfristig die Geldmenge zu erhöhen ("Political Business Cycle"), um Wahlen zu gewinnen. Dies führt langfristig nur zu Inflation. Um dieses <strong>Zeitinkonsistenz-Problem</strong> zu lösen, muss die Geldpolitik an eine unabhängige, glaubwürdige Institution delegiert werden.
-                                </p>
-                            </div>
-                        </details>
-
-                        <!-- NEUER BEREICH: ORGANE -->
-                        <h3 class="text-xl font-bold text-slate-700 mb-4 pt-4 border-t border-slate-200">Die Entscheidungszentren: Wer steuert den Euro?</h3>
-                        <p class="mb-6">
-                            Die Governance-Struktur der EZB spiegelt den föderalen Charakter der EU wider. Während das <strong>Direktorium</strong> als supranationales Exekutivorgan fungiert, repräsentiert der <strong>EZB-Rat</strong> als höchstes Entscheidungsgremium die Interessen des gesamten Währungsraums.
+                        <p class="mb-4">
+                            (2) Die grundlegenden Aufgaben des ESZB bestehen darin,<br>
+                            - die Geldpolitik der Union festzulegen und auszuführen,<br>
+                            - Devisengeschäfte im Einklang mit Artikel 219 durchzuführen,<br>
+                            - die offiziellen Währungsreserven der Mitgliedstaaten zu halten und zu verwalten,<br>
+                            - das reibungslose Funktionieren der Zahlungssysteme zu fördern.
                         </p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <!-- Organ 1: Direktorium -->
-                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-                                <h4 class="font-bold text-blue-800 pb-2 mb-3 flex items-center">
-                                    <span class="bg-blue-100 p-2 rounded mr-3"><i class="fas fa-user-tie text-blue-600"></i></span> 
-                                    Das Direktorium
-                                </h4>
-                                <ul class="text-sm text-slate-700 space-y-3">
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Präsident/in, Vizepräsident/in + 4 weitere Mitglieder.</span></li>
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Führung der laufenden Geschäfte, Vorbereitung der Ratssitzungen, <em>Umsetzung</em> der Geldpolitik.</span></li>
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Wahl:</strong> Durch den Europäischen Rat (Staatschefs) für 8 Jahre.</span></li>
-                                </ul>
-                            </div>
+                        <p class="mb-2 text-sm text-gray-500">[...] (5) Das ESZB trägt zur reibungslosen Durchführung der [...] Aufsicht über die Kreditinstitute [...] bei.</p>
+                    </div>
 
-                            <!-- Organ 2: EZB-Rat -->
-                            <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
-                                <h4 class="font-bold text-indigo-800 pb-2 mb-3 flex items-center">
-                                    <span class="bg-indigo-100 p-2 rounded mr-3"><i class="fas fa-gavel text-indigo-600"></i></span>
-                                    Der EZB-Rat
-                                </h4>
-                                <ul class="text-sm text-slate-700 space-y-3">
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Die 6 Mitglieder des Direktoriums + Präsidenten der Nationalen Zentralbanken (NZB) der Euro-Länder.</span></li>
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Höchstes Gremium. Festlegung der <em>Leitzinsen</em> und der monetären Strategie.</span></li>
-                                    <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Prinzip:</strong> "Ad personam" (unabhängige Entscheidung) & Rotationsprinzip bei Stimmrechten.</span></li>
-                                </ul>
-                            </div>
+                    <!-- Gatekeeper Quiz -->
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-slate-700 mb-4 border-b pb-2">Verständnischeck zum Artikel</h4>
+                        
+                        <!-- Q1 -->
+                        <div class="mb-4">
+                            <p class="text-sm font-semibold mb-2">1. Welches Verhältnis besteht laut Abs. 1 zwischen Preisstabilität und Wirtschaftspolitik?</p>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q1" value="wrong" class="mr-2"> Sie sind völlig gleichrangige Ziele (duales Mandat).</label>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q1" value="correct" class="mr-2"> Preisstabilität ist vorrangig; Wirtschaftspolitik wird nur unterstützt, wenn das Primärziel nicht gefährdet ist.</label>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q1" value="wrong" class="mr-2"> Die Wirtschaftspolitik hat Vorrang, um Arbeitsplätze zu sichern.</label>
                         </div>
 
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-r">
-                            <h5 class="font-bold text-yellow-800 text-sm flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i> Begriffsschärfung: Eurosystem vs. ESZB</h5>
-                            <p class="text-sm text-yellow-900 mt-1">
-                                Das <strong>Eurosystem</strong> umfasst die EZB und die NZBs der Länder, die den Euro eingeführt haben. Das <strong>ESZB (Europäisches System der Zentralbanken)</strong> schließt <em>alle</em> EU-Zentralbanken ein (auch jene ohne Euro, z.B. Schweden, Polen). Geldpolitische Entscheidungen für den Euroraum trifft nur das Eurosystem.
+                        <!-- Q2 -->
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-2">2. Was gehört laut Abs. 2 NICHT zu den grundlegenden Aufgaben?</p>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q2" value="wrong" class="mr-2"> Festlegung der Geldpolitik.</label>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q2" value="correct" class="mr-2"> Festlegung der Steuersätze in den Mitgliedstaaten.</label>
+                            <label class="block text-sm mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded"><input type="radio" name="gate_q2" value="wrong" class="mr-2"> Verwalten von Währungsreserven.</label>
+                        </div>
+
+                        <div id="gate_feedback" class="text-sm font-bold mb-4 hidden"></div>
+
+                        <button onclick="checkGatekeeper()" class="bg-amber-600 text-white px-6 py-2 rounded hover:bg-amber-700 transition shadow">
+                            <i class="fas fa-unlock-alt mr-2"></i> Prüfen & Inhalt freischalten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MAIN CONTENT (Initially Hidden) -->
+                <div id="tab1-main" class="hidden animate-fade-in-up">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 mb-8">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-landmark text-2xl text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-slate-800">Analyse: Institutionelle Architektur</h2>
+                                <p class="text-slate-500">Deep Dive: Unabhängigkeit, Governance und Legitimation</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 bg-blue-50 border-l-4 border-blue-600 mb-8 rounded-r-lg">
+                            <h4 class="font-bold text-blue-800 mb-1"><i class="fas fa-graduation-cap"></i> Arbeitsauftrag</h4>
+                            <p class="text-sm text-blue-900 leading-relaxed">
+                                Nachdem Sie die Rechtsgrundlage kennen: Analysieren Sie die Struktur, die geschaffen wurde, um dieses Ziel zu erreichen. Differenzieren Sie zwischen <strong>Direktorium</strong> und <strong>EZB-Rat</strong> und erläutern Sie das Spannungsfeld der Unabhängigkeit.
                             </p>
                         </div>
-                    </article>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-blue-500 pl-2">Ihre Analyse-Notizen (Unabhängigkeit & Organe):</label>
-                        <textarea id="note1" class="w-full h-40 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-blue-500 focus:border-transparent save-local academic-text text-sm" placeholder="Notieren Sie hier Ihre Erkenntnisse. Wie unterscheiden sich die Aufgaben von Direktorium und Rat? Warum ist die Unabhängigkeit demokratisch heikel?"></textarea>
+                        <!-- Grafik: Die 4 Säulen der Unabhängigkeit -->
+                        <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                            <h3 class="text-center font-bold text-slate-700 mb-6 uppercase tracking-widest text-sm">Das Fundament der EZB (Basierend auf Art. 127 AEUV)</h3>
+                            
+                            <!-- Dach -->
+                            <div class="bg-blue-900 text-white text-center py-4 rounded-t-lg shadow-lg mb-1 mx-4 relative z-10">
+                                <h4 class="font-bold text-lg">PRIMÄRZIEL: PREISSTABILITÄT</h4>
+                            </div>
+                            
+                            <!-- Säulen Container -->
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-4">
+                                <!-- Säule 1 -->
+                                <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                    <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-university"></i></div>
+                                    <h5 class="font-bold text-sm mb-2">Institutionell</h5>
+                                    <p class="text-xs text-slate-500">Keine Weisungen von Regierungen (Art. 130 AEUV).</p>
+                                </div>
+                                <!-- Säule 2 -->
+                                <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                    <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-users-cog"></i></div>
+                                    <h5 class="font-bold text-sm mb-2">Personell</h5>
+                                    <p class="text-xs text-slate-500">Lange Amtszeit (8 Jahre), keine Wiederwahl.</p>
+                                </div>
+                                <!-- Säule 3 -->
+                                <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                    <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-coins"></i></div>
+                                    <h5 class="font-bold text-sm mb-2">Finanziell</h5>
+                                    <p class="text-xs text-slate-500">Eigener Haushalt, Verbot monetärer Staatsfinanzierung.</p>
+                                </div>
+                                <!-- Säule 4 -->
+                                <div class="pillar-box bg-white p-4 text-center border-x-2 border-b-2 border-slate-300 rounded-b-lg shadow-sm">
+                                    <div class="text-blue-500 text-3xl mb-2"><i class="fas fa-cogs"></i></div>
+                                    <h5 class="font-bold text-sm mb-2">Funktionell</h5>
+                                    <p class="text-xs text-slate-500">Freie Wahl der Instrumente zur Zielerreichung.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <article class="academic-text mb-8">
+                            <p class="mb-4">
+                                Die im Artikel 127 definierte Zielhierarchie ist einzigartig. Im Gegensatz zum dualen Mandat der US-amerikanischen Fed ist die Unterstützung der allgemeinen Wirtschaftspolitik in der EU dem Ziel der Geldwertstabilität untergeordnet.
+                            </p>
+                            
+                            <details class="group mb-8">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none bg-slate-100 p-4 rounded-lg hover:bg-slate-200 transition">
+                                    <span><i class="fas fa-book-open mr-2 text-blue-600"></i> Exkurs: Das Time-Inconsistency-Problem</span>
+                                    <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                                </summary>
+                                <div class="text-slate-600 mt-3 group-open:animate-fadeIn px-4 pb-4 bg-slate-50 rounded-b-lg border-x border-b border-slate-100">
+                                    <p>
+                                        Ökonomisch lässt sich die Unabhängigkeit durch die Theorie der rationalen Erwartungen begründen. Eine Zentralbank unter politischem Einfluss neigt dazu, kurzfristig die Geldmenge zu erhöhen ("Political Business Cycle"), um Wahlen zu gewinnen. Dies führt langfristig nur zu Inflation. Um dieses <strong>Zeitinkonsistenz-Problem</strong> zu lösen, muss die Geldpolitik an eine unabhängige, glaubwürdige Institution delegiert werden.
+                                    </p>
+                                </div>
+                            </details>
+
+                            <!-- BEREICH: ORGANE -->
+                            <h3 class="text-xl font-bold text-slate-700 mb-4 pt-4 border-t border-slate-200">Die Entscheidungszentren: Wer steuert den Euro?</h3>
+                            <p class="mb-6">
+                                Die Governance-Struktur der EZB spiegelt den föderalen Charakter der EU wider. Während das <strong>Direktorium</strong> als supranationales Exekutivorgan fungiert, repräsentiert der <strong>EZB-Rat</strong> als höchstes Entscheidungsgremium die Interessen des gesamten Währungsraums.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <!-- Organ 1: Direktorium -->
+                                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                                    <h4 class="font-bold text-blue-800 pb-2 mb-3 flex items-center">
+                                        <span class="bg-blue-100 p-2 rounded mr-3"><i class="fas fa-user-tie text-blue-600"></i></span> 
+                                        Das Direktorium
+                                    </h4>
+                                    <ul class="text-sm text-slate-700 space-y-3">
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Präsident/in, Vizepräsident/in + 4 weitere Mitglieder.</span></li>
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Führung der laufenden Geschäfte, Vorbereitung der Ratssitzungen, <em>Umsetzung</em> der Geldpolitik.</span></li>
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-blue-400 mt-1 mr-2"></i> <span><strong>Wahl:</strong> Durch den Europäischen Rat (Staatschefs) für 8 Jahre.</span></li>
+                                    </ul>
+                                </div>
+
+                                <!-- Organ 2: EZB-Rat -->
+                                <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                                    <h4 class="font-bold text-indigo-800 pb-2 mb-3 flex items-center">
+                                        <span class="bg-indigo-100 p-2 rounded mr-3"><i class="fas fa-gavel text-indigo-600"></i></span>
+                                        Der EZB-Rat
+                                    </h4>
+                                    <ul class="text-sm text-slate-700 space-y-3">
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Zusammensetzung:</strong> Die 6 Mitglieder des Direktoriums + Präsidenten der Nationalen Zentralbanken (NZB) der Euro-Länder.</span></li>
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Aufgabe:</strong> Höchstes Gremium. Festlegung der <em>Leitzinsen</em> und der monetären Strategie.</span></li>
+                                        <li class="flex items-start"><i class="fas fa-caret-right text-indigo-400 mt-1 mr-2"></i> <span><strong>Prinzip:</strong> "Ad personam" (unabhängige Entscheidung) & Rotationsprinzip bei Stimmrechten.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-r">
+                                <h5 class="font-bold text-yellow-800 text-sm flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i> Begriffsschärfung: Eurosystem vs. ESZB</h5>
+                                <p class="text-sm text-yellow-900 mt-1">
+                                    Das <strong>Eurosystem</strong> umfasst die EZB und die NZBs der Länder, die den Euro eingeführt haben. Das <strong>ESZB (Europäisches System der Zentralbanken)</strong> schließt <em>alle</em> EU-Zentralbanken ein (auch jene ohne Euro, z.B. Schweden, Polen). Geldpolitische Entscheidungen für den Euroraum trifft nur das Eurosystem.
+                                </p>
+                            </div>
+                        </article>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold text-gray-700 mb-2 border-l-4 border-blue-500 pl-2">Ihre Analyse-Notizen (Unabhängigkeit & Organe):</label>
+                            <textarea id="note1" class="w-full h-40 p-4 bg-white border border-gray-300 rounded shadow-inner focus:ring-2 focus:ring-blue-500 focus:border-transparent save-local academic-text text-sm" placeholder="Notieren Sie hier Ihre Erkenntnisse. Wie unterscheiden sich die Aufgaben von Direktorium und Rat? Warum ist die Unabhängigkeit demokratisch heikel?"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -755,6 +830,32 @@
             }
         }
         
+        // --- Gatekeeper Logic (Tab 1) ---
+        function checkGatekeeper() {
+            const q1 = document.querySelector('input[name="gate_q1"]:checked');
+            const q2 = document.querySelector('input[name="gate_q2"]:checked');
+            const feedback = document.getElementById('gate_feedback');
+            const mainContent = document.getElementById('tab1-main');
+            
+            feedback.classList.remove('hidden');
+            feedback.classList.remove('text-green-600', 'text-red-600');
+            
+            if (q1 && q1.value === 'correct' && q2 && q2.value === 'correct') {
+                feedback.innerHTML = '<i class="fas fa-check-circle"></i> Korrekt! Analysebereich wird freigeschaltet.';
+                feedback.classList.add('text-green-600');
+                
+                // Show Main Content with Animation
+                mainContent.classList.remove('hidden');
+                
+                // Save Unlock State
+                localStorage.setItem('tab1_unlocked', 'true');
+            } else {
+                feedback.innerHTML = '<i class="fas fa-times-circle"></i> Nicht ganz korrekt. Lesen Sie den Artikel noch einmal genau.';
+                feedback.classList.add('text-red-600');
+                mainContent.classList.add('hidden');
+            }
+        }
+
         // --- Scenario Switcher Logic (Tab 2) ---
         function switchChain(scenario) {
             const chainContractive = document.getElementById('chain-contractive');
@@ -766,22 +867,16 @@
                 chainContractive.classList.remove('hidden');
                 chainExpansive.classList.add('hidden');
                 
-                // Style Active Button
                 btnContractive.classList.add('active-scenario');
                 btnContractive.classList.remove('bg-white', 'text-gray-600');
-                
-                // Style Inactive Button
                 btnExpansive.classList.remove('active-scenario');
                 btnExpansive.classList.add('bg-white', 'text-gray-600');
             } else {
                 chainContractive.classList.add('hidden');
                 chainExpansive.classList.remove('hidden');
                 
-                // Style Active Button
                 btnExpansive.classList.add('active-scenario');
                 btnExpansive.classList.remove('bg-white', 'text-gray-600');
-                
-                // Style Inactive Button
                 btnContractive.classList.remove('active-scenario');
                 btnContractive.classList.add('bg-white', 'text-gray-600');
             }
@@ -801,52 +896,51 @@
                     labels: ['Dienstleistungen', 'Industriegüter', 'Lebensmittel', 'Energie'],
                     datasets: [{
                         data: [44, 26, 20, 10], // Beispielhafte Gewichtung
-                        backgroundColor: [
-                            '#3b82f6', // blue-500
-                            '#64748b', // slate-500
-                            '#22c55e', // green-500
-                            '#f59e0b'  // amber-500
-                        ],
+                        backgroundColor: ['#3b82f6', '#64748b', '#22c55e', '#f59e0b'],
                         borderWidth: 0
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    animation: {
-                        animateScale: true,
-                        animateRotate: true
-                    }
+                    plugins: { legend: { display: false } },
+                    animation: { animateScale: true, animateRotate: true }
                 }
             });
         }
 
         // --- Local Storage Logic ---
         function saveData() {
-            // Textareas
             document.querySelectorAll('.save-local').forEach(input => {
                 localStorage.setItem(input.id, input.value);
             });
-            // Radios (Generic for all groups)
             document.querySelectorAll('input[type="radio"].save-local-radio:checked').forEach(radio => {
                 localStorage.setItem(radio.name, radio.value);
             });
         }
 
         function loadData() {
-            // Textareas
+            // Restore Tab 1 State
+            if(localStorage.getItem('tab1_unlocked') === 'true') {
+                const main = document.getElementById('tab1-main');
+                const feedback = document.getElementById('gate_feedback');
+                if(main) main.classList.remove('hidden');
+                if(feedback) {
+                    feedback.classList.remove('hidden', 'text-red-600');
+                    feedback.classList.add('text-green-600');
+                    feedback.innerHTML = '<i class="fas fa-check-circle"></i> Bereits freigeschaltet.';
+                }
+                // Pre-check correct answers visually if desired, or leave blank
+            }
+
+            // Restore Textareas
             document.querySelectorAll('.save-local').forEach(input => {
                 if (localStorage.getItem(input.id)) {
                     input.value = localStorage.getItem(input.id);
                 }
             });
             
-            // Radios - Explicitly checking known groups to ensure correct loading UI
+            // Restore Radios
             const radioGroups = ['reflexion_smiley', 'self_check_1', 'self_check_2', 'self_check_3'];
             radioGroups.forEach(groupName => {
                 const val = localStorage.getItem(groupName);
@@ -919,13 +1013,10 @@
             const s1 = document.getElementById('script_scene1').value || "-";
             const s2 = document.getElementById('script_scene2').value || "-";
             const s3 = document.getElementById('script_scene3').value || "-";
-            
-            // New Reflection Values
             const refMethod = document.getElementById('ref_method').value || "(Keine Eingabe)";
             const refContent = document.getElementById('ref_content').value || "(Keine Eingabe)";
             const refFinal = document.getElementById('reflection_text').value || "(Keine Eingabe)";
             
-            // Radio Helper
             const getRadioVal = (name) => {
                 const el = document.querySelector(`input[name="${name}"]:checked`);
                 const map = { 'no': 'Nein', 'partly': 'Teilweise', 'yes': 'Ja' };
@@ -942,61 +1033,41 @@
                         <h1 style="margin: 0; font-size: 28px; color: #1e3a8a;">Portfolio: Geldpolitik</h1>
                         <p style="margin: 10px 0 0 0; color: #666; font-size: 14px;">Kursstufe 13 | Datum: ${date}</p>
                     </div>
-
                     <div style="margin-bottom: 40px;">
                         <h2 style="font-size: 16px; color: #1e40af; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">1. Mandat & Institution</h2>
                         <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #1e40af; font-size: 14px; line-height: 1.6;">${note1}</div>
                     </div>
-
                     <div style="margin-bottom: 40px;">
                         <h2 style="font-size: 16px; color: #166534; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">2. Transmission & Strategie</h2>
                         <div style="background: #f8fafc; padding: 15px; border-left: 4px solid #166534; font-size: 14px; line-height: 1.6;">${note2}</div>
                     </div>
-
                     <div style="margin-bottom: 40px;">
-                        <h2 style="font-size: 16px; color: #6b21a8; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">3. Videokonzept (Drehbuch)</h2>
+                        <h2 style="font-size: 16px; color: #6b21a8; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">3. Videokonzept</h2>
                         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
                             <tr style="background-color: #f3f4f6;">
-                                <td style="padding: 10px; border: 1px solid #e5e7eb; width: 25%; font-weight: bold;">Szene 1 (Intro)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; width: 25%; font-weight: bold;">Szene 1</td>
                                 <td style="padding: 10px; border: 1px solid #e5e7eb;">${s1}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 2 (Mechanik)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 2</td>
                                 <td style="padding: 10px; border: 1px solid #e5e7eb;">${s2}</td>
                             </tr>
                             <tr style="background-color: #f3f4f6;">
-                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 3 (Fazit)</td>
+                                <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: bold;">Szene 3</td>
                                 <td style="padding: 10px; border: 1px solid #e5e7eb;">${s3}</td>
                             </tr>
                         </table>
                     </div>
-
-                    <div style="margin-bottom: 40px; page-break-inside: avoid;">
-                        <h2 style="font-size: 16px; color: #854d0e; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">4. Reflexion & Metakognition</h2>
-                        
-                        <div style="margin-bottom: 20px;">
-                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">Selbsteinschätzung:</h3>
-                            <ul style="list-style: none; padding: 0; font-size: 13px;">
-                                <li style="margin-bottom: 5px;">• Unterschiede Unabhängigkeit: <strong>${check1}</strong></li>
-                                <li style="margin-bottom: 5px;">• Transmissionsmechanismus: <strong>${check2}</strong></li>
-                                <li style="margin-bottom: 5px;">• Begründung 2%-Ziel: <strong>${check3}</strong></li>
-                            </ul>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Methodische Reflexion:</h3>
-                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refMethod}</div>
-                        </div>
-
-                        <div style="margin-bottom: 20px;">
-                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Politische Urteilskompetenz:</h3>
-                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refContent}</div>
-                        </div>
-
-                        <div>
-                            <h3 style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Fazit:</h3>
-                            <div style="background: #fffbeb; padding: 10px; border-left: 4px solid #d97706; font-size: 13px; line-height: 1.5;">${refFinal}</div>
-                        </div>
+                    <div style="margin-bottom: 40px;">
+                        <h2 style="font-size: 16px; color: #854d0e; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px;">4. Reflexion</h2>
+                        <ul style="list-style: none; padding: 0; font-size: 13px; margin-bottom: 15px;">
+                            <li>• Unabhängigkeit: ${check1}</li>
+                            <li>• Transmission: ${check2}</li>
+                            <li>• 2%-Ziel: ${check3}</li>
+                        </ul>
+                        <div style="font-size: 13px;"><strong>Methodik:</strong> ${refMethod}</div>
+                        <div style="font-size: 13px; margin-top: 10px;"><strong>Urteilskompetenz:</strong> ${refContent}</div>
+                        <div style="font-size: 13px; margin-top: 10px;"><strong>Fazit:</strong> ${refFinal}</div>
                     </div>
                 </div>
             `;
